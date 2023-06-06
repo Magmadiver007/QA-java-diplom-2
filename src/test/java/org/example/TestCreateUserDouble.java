@@ -13,14 +13,12 @@ public class TestCreateUserDouble {
     private UserClient userClient;
     private User user;
     private String accessToken;
-    private String refreshToken;
     @Before
     public void setUp() {
         userClient = new UserClient();
         user = UserGenerator.getRandom();
         ValidatableResponse createResponse = userClient.createUser(user);
         accessToken = createResponse.extract().path("accessToken");
-        refreshToken = createResponse.extract().path("refreshToken");
     }
     @Test
     @DisplayName("Test создания дубля пользователя")

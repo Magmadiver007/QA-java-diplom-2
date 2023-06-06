@@ -17,7 +17,6 @@ public class TestGetOrdersByUser {
     private User user;
     private OrderClient orderClient;
     private String accessToken;
-    private List<String> ingredients;
     private Order order;
     private int orderNumber;
     private String burgerName;

@@ -6,7 +6,6 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.List;
 
 import static org.example.TestData.*;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -18,9 +17,8 @@ public class TestCreateOrder {
     private User user;
     private OrderClient orderClient;
     private String accessToken;
-    private List<String> ingredients;
     private Order order;
-    private String burgerName;
+
     @Before
     public void setUp() {
         userClient = new UserClient();
@@ -60,7 +58,7 @@ public class TestCreateOrder {
     @DisplayName("Test создания Заказа без ингредиентов")
     @Description("Тест создания Заказа без ингредиентов")
     public void testCreateNoIngredientsOrder(){
-        order = new Order(ingredients);
+        order = new Order(null);
         ValidatableResponse createResponse = orderClient.createOrderAuthorized(accessToken, order);
         createResponse.assertThat().statusCode(equalTo(400));
         createResponse.assertThat().body("success",equalTo(false));

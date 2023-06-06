@@ -19,7 +19,6 @@ public class TestCreateUser {
     private int statusCodeExpected;
 
     private String accessToken;
-    private String refreshToken;
     private boolean isSuccess;
 
     public TestCreateUser (User user, int statusCode){
@@ -56,7 +55,6 @@ public class TestCreateUser {
                 createResponse.assertThat().body("user.email",equalTo(user.getEmail().toLowerCase()));
                 createResponse.assertThat().body("user.name",equalTo(user.getName()));
                 accessToken = createResponse.extract().path("accessToken");
-                refreshToken = createResponse.extract().path("refreshToken");
                 break;
             case (403) :
                 isSuccess = createResponse.extract().path("success");

@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.junit.Assert.fail;
 
@@ -25,7 +24,6 @@ public class TestLoginUser {
     private UserStatus userStatus;
 
     private String accessToken;
-    private String refreshToken;
     public TestLoginUser (User user, int statusCode, UserStatus userStatus){
         this.user = user;
         this.statusCodeExpected = statusCode;
@@ -45,7 +43,6 @@ public class TestLoginUser {
         userClient = new UserClient();
         ValidatableResponse createResponse = userClient.createUser(user);
         accessToken = createResponse.extract().path("accessToken");
-        refreshToken = createResponse.extract().path("refreshToken");
     }
     @Test
     @DisplayName("Test логина пользователя")
@@ -62,7 +59,6 @@ public class TestLoginUser {
                 createSuccessResponse.assertThat().body("accessToken", CoreMatchers.not(isEmptyOrNullString()));
                 createSuccessResponse.assertThat().body("refreshToken",CoreMatchers.not(isEmptyOrNullString()));
                 accessToken = createSuccessResponse.extract().path("accessToken");
-                refreshToken = createSuccessResponse.extract().path("refreshToken");
                 break;
             case UNAUTHORIZED:
                 userForLogin = UserGenerator.userForWrongLogin(user.getEmail(), user.getPassword());
